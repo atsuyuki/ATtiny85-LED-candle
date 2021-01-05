@@ -20,18 +20,21 @@ const int PROGMEM gamma8[] = {
 
 const int led_pin_1 = 0;
 const int led_pin_2 = 1;
+const int led_pin_GND = 2;
 
 float value = 0.1;
 
-const int max_value = 255;
-const int dimming_range = 90; // magic number
+const int max_value = 200;
+const int dimming_range = 100; // magic number
 
 const float threshold = 0.065; // magic number
 
 
 void setup() {
-  pinMode(led_pin_1,OUTPUT);
-  pinMode(led_pin_2,OUTPUT);
+  pinMode(led_pin_1, OUTPUT);
+  pinMode(led_pin_2, OUTPUT);
+  pinMode(led_pin_GND, OUTPUT);
+  digitalWrite(led_pin_GND, LOW);
 }
 
 void loop() {
@@ -43,7 +46,7 @@ void loop() {
   }
 
   if (value <= (0.0 + threshold) || (1.0 - threshold) <= value) {
-    value = random(0.0 + (threshold * 1000),1000 - (threshold * 1000)) / 1000.0;
+    value = random(0.0 + (threshold * 1000), 1000 - (threshold * 1000)) / 1000.0;
   }
 
   int value_1 = max_value - dimming_range + (value * dimming_range);
